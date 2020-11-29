@@ -1,0 +1,55 @@
+{
+  "author": "Jarek Toro",
+  "homepage": "https://github.com/JarekToro/Apple-Music-Mpris",
+  "name": "apple-music-mpris",
+  "productName": "Apple Music",
+  "version": "0.0.9",
+  "description": "rm .git ",
+  "license": "MIT",
+  "buildResources": "assets",
+  "scripts": {
+    "init": "install",
+    "start": "electron --enable-accelerated-mjpeg-decode  --trace-warnings  --enable-accelerated-video --ignore-gpu-blacklist --enable-native-gpu-memory-buffers --enable-gpu-rasterization .",
+    "pack": "electron-builder --dir",
+    "build:linux": "electron-builder --linux"
+  },
+  "dependencies": {
+    "mpris-service": "^2.1.0",
+    "source-map-support": "^0.5.16",
+    "v8-compile-cache": "^2.1.1"
+  },
+  "devDependencies": {
+    "electron": "git+https://github.com/castlabs/electron-releases.git#v11.0.3-wvvmp",
+    "electron-builder": "^22.8.0",
+    "electron-rebuild": "^2.3.2",
+    "electron-webpack": "^2.8.2",
+    "musickit-typescript": "^1.2.4",
+    "webpack": "~4.42.1"
+  },
+  "build": {
+    "electronVersion": "11.0.3",
+    "electronDownload": {
+      "version": "11.0.3-wvvmp",
+      "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
+    },
+    "appId": "apple-music",
+    "extends": null,
+    "files": [
+      "**/*",
+      "assets/icon.*"
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "AudioVideo",
+      "icon": "./assets/icon.icns"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "./assets/icon.ico"
+    }
+  }
+}
