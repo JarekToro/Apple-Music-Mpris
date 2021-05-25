@@ -1,26 +1,24 @@
 // preload.js
 const electron = require('electron');
 
-
 const MusicKitInterop = {
 
     init: function (){
+
         MusicKit.getInstance().addEventListener( MusicKit.Events.playbackStateDidChange, (a) => {
             global.ipcRenderer.send('playbackStateDidChange', a.state)
-
         });
-        MusicKit.getInstance().addEventListener( MusicKit.Events.mediaItemStateDidChange, () => {
-            global.ipcRenderer.send('mediaItemStateDidChange', MusicKitInterop.getAttributes())
-
+        MusicKit.getInstance().addEventListener( MusicKit.Events.mediaItemStateDidChange, (mediaItem) => {
+            global.ipcRenderer.send('mediaItemStateDidChange', MusicKitInterop.getAttributes(mediaItem))
         });
+
     },
 
-    getAttributes: function() {
-        const nowPlayingItem =  MusicKit.getInstance().nowPlayingItem;
+    getAttributes: function(mediaItem) {
         let attributes  = {};
 
-        if (nowPlayingItem != null){
-           attributes = nowPlayingItem.attributes;
+        if (mediaItem != null){
+           attributes = mediaItem.attributes;
         }
         attributes.name = attributes.name ? attributes.name : 'No Title Found';
         attributes.durationInMillis = attributes.durationInMillis ? attributes.durationInMillis : 0;
@@ -40,13 +38,3 @@ process.once('loaded', () => {
     global.ipcRenderer = electron.ipcRenderer;
     global.MusicKitInterop = MusicKitInterop;
 });
-
-
-
-
-
-
-
-
-// MusicKit.getInstance().addEventListener( MusicKit.Events.queueItemsDidChange,logIt );
-// MusicKit.getInstance().addEventListener( MusicKit.Events.queuePositionDidChange, logIt );

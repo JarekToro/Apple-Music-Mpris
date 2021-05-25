@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Apple Music
+Comment=Apple Music For Linux
+Exec=applemusic
+Icon=icon.icns
+Terminal=False
+Categories=AudioVideo
